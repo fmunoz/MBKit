@@ -1,5 +1,6 @@
-language: swift
+language: objective-c
 os: osx
 osx_image: xcode9.2
 xcode_project: MBKit.xcodeproj
 xcode_scheme: MBKit
+xcode_sdk: iphonesimulator11.2
