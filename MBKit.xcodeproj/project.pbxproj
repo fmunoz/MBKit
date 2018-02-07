@@ -10,6 +10,8 @@
 		5187C22B202B7E7B00C8CA55 /* MBKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5187C221202B7E7A00C8CA55 /* MBKit.framework */; };
 		5187C230202B7E7B00C8CA55 /* MBKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5187C22F202B7E7B00C8CA55 /* MBKitTests.swift */; };
 		5187C232202B7E7B00C8CA55 /* MBKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 5187C224202B7E7A00C8CA55 /* MBKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5193036E202B967600F12EFE /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193036D202B967600F12EFE /* Int.swift */; };
+		51930370202B96AA00F12EFE /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193036F202B96AA00F12EFE /* Int.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +31,8 @@
 		5187C22A202B7E7B00C8CA55 /* MBKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MBKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5187C22F202B7E7B00C8CA55 /* MBKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBKitTests.swift; sourceTree = "<group>"; };
 		5187C231202B7E7B00C8CA55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5193036D202B967600F12EFE /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
+		5193036F202B96AA00F12EFE /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +75,7 @@
 		5187C223202B7E7A00C8CA55 /* MBKit */ = {
 			isa = PBXGroup;
 			children = (
+				5193036C202B95AD00F12EFE /* Extensions */,
 				5187C224202B7E7A00C8CA55 /* MBKit.h */,
 				5187C225202B7E7A00C8CA55 /* Info.plist */,
 			);
@@ -82,8 +87,17 @@
 			children = (
 				5187C22F202B7E7B00C8CA55 /* MBKitTests.swift */,
 				5187C231202B7E7B00C8CA55 /* Info.plist */,
+				5193036F202B96AA00F12EFE /* Int.swift */,
 			);
 			path = MBKitTests;
+			sourceTree = "<group>";
+		};
+		5193036C202B95AD00F12EFE /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5193036D202B967600F12EFE /* Int.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -148,6 +162,7 @@
 				TargetAttributes = {
 					5187C220202B7E7A00C8CA55 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Manual;
 					};
 					5187C229202B7E7A00C8CA55 = {
@@ -196,6 +211,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5193036E202B967600F12EFE /* Int.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -204,6 +220,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5187C230202B7E7B00C8CA55 /* MBKitTests.swift in Sources */,
+				51930370202B96AA00F12EFE /* Int.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,6 +351,7 @@
 		5187C236202B7E7B00C8CA55 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -350,6 +368,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -358,6 +377,7 @@
 		5187C237202B7E7B00C8CA55 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
@@ -381,6 +401,7 @@
 		5187C239202B7E7B00C8CA55 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = MBKitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -394,6 +415,7 @@
 		5187C23A202B7E7B00C8CA55 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = MBKitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
