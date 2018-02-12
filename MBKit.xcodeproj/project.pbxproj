@@ -12,6 +12,7 @@
 		5187C232202B7E7B00C8CA55 /* MBKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 5187C224202B7E7A00C8CA55 /* MBKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5193036E202B967600F12EFE /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193036D202B967600F12EFE /* Int.swift */; };
 		51930370202B96AA00F12EFE /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193036F202B96AA00F12EFE /* Int.swift */; };
+		51DB2258202E7CC70042B3ED /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DB2257202E7CC70042B3ED /* HeaderView.swift */; };
 		51FC7791202BF9E400286D5C /* MBButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FC7790202BF9E400286D5C /* MBButton.swift */; };
 /* End PBXBuildFile section */
 
@@ -34,6 +35,7 @@
 		5187C231202B7E7B00C8CA55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5193036D202B967600F12EFE /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		5193036F202B96AA00F12EFE /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
+		51DB2257202E7CC70042B3ED /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		51FC7790202BF9E400286D5C /* MBButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -108,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				51FC7790202BF9E400286D5C /* MBButton.swift */,
+				51DB2257202E7CC70042B3ED /* HeaderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -232,6 +235,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				51FC7791202BF9E400286D5C /* MBButton.swift in Sources */,
+				51DB2258202E7CC70042B3ED /* HeaderView.swift in Sources */,
 				5193036E202B967600F12EFE /* Int.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
