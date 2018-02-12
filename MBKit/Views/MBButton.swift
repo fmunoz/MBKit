@@ -47,7 +47,6 @@ open class MBButton: UIButton {
     }
     
     
-    
     @IBInspectable public var showBorders : Bool = false {
         didSet {
             applyProperties()
@@ -72,18 +71,57 @@ open class MBButton: UIButton {
         }
     }
     
+    @IBInspectable public var titlePrefix : String? {
+        didSet {
+            applyProperties()
+        }
+    }
+    
+    @IBInspectable public var titleSufix : String? {
+        didSet {
+            applyProperties()
+        }
+    }
+    
+    @IBInspectable public var titleModifiersFontSizeRatio : CGFloat = 1.0 {
+        didSet {
+            applyProperties()
+        }
+    }
+    
+    @IBInspectable public var titleModifierMargin: CGFloat = 6.0 {
+        didSet {
+            applyProperties()
+        }
+    }
+    
     public var customShapePath:CGPath? {
         didSet {
             applyProperties()
         }
     }
     
+    private func updateTitle() {
+        setNeedsLayout()
+    }
+    
     private func applyProperties(){
-        switch type {
+        
+        let borderColor = (self.borderColor ?? self.tintColor)?.withAlphaComponent(renderHighlight ? 0.5 : 1)
+        self.backgroundColor = self.backgroundColor?.withAlphaComponent(renderHighlight ? 0.5 : 1)
+        
+        if (hasDecoratedTitle) {
+            self._titleLabel.textColor = self.tintColor?.withAlphaComponent(renderHighlight ? 0.5 : 1)
+            self._titleLabel.setNeedsDisplay()
             
+            self._prefixLabel.textColor = self.tintColor?.withAlphaComponent(renderHighlight ? 0.5 : 1)
+            self._sufixLabel.textColor = self.tintColor?.withAlphaComponent(renderHighlight ? 0.5 : 1)
+        }
+        
+        switch type {
         case .normal:
             if showBorders {
-                layer.borderColor = borderColor?.cgColor ?? tintColor?.cgColor
+                layer.borderColor = borderColor?.cgColor
                 layer.borderWidth = (borderWidth > 0) ? borderWidth : 1.0
                 layer.cornerRadius = cornerRadius
             }
@@ -105,6 +143,7 @@ open class MBButton: UIButton {
         }
         
         setTitleColor(tintColor, for: .normal)
+        setNeedsDisplay()
     }
     
     private lazy var blurView:UIVisualEffectView = {
@@ -113,6 +152,74 @@ open class MBButton: UIButton {
         view.clipsToBounds = true
         return view
     }()
+    
+    private lazy var _titleLabel = UILabel()
+    private lazy var titleStack = UIStackView()
+    private lazy var _prefixLabel = UILabel()
+    private lazy var _sufixLabel = UILabel()
+    
+    private var hasDecoratedTitle : Bool {
+        return titlePrefix != nil || titleSufix != nil
+    }
+    
+    override open func didMoveToSuperview() {
+        applyProperties()
+        
+        addTarget(self, action: #selector(touchDown), for: .touchDown)
+        addTarget(self, action: #selector(touchUp), for: .touchUpInside)
+        addTarget(self, action: #selector(touchUp), for: .touchUpOutside)
+    }
+    
+    private var renderHighlight = false
+    
+    @objc private func touchDown(){
+        renderHighlight = true
+        applyProperties()
+    }
+    
+    @objc private func touchUp(){
+        renderHighlight = false
+        applyProperties()
+    }
+    
+    override open func layoutSubviews() {
+        super.layoutSubviews()
+        applyProperties()
+        if hasDecoratedTitle {
+            if !subviews.contains(titleStack){
+                titleStack.distribution = .fillProportionally
+                titleStack.axis = .horizontal
+                titleStack.addArrangedSubview(_prefixLabel)
+                titleStack.addArrangedSubview(_titleLabel)
+                titleStack.addArrangedSubview(_sufixLabel)
+                
+                addSubview(titleStack)
+            }
+            
+            guard let titleLabel = titleLabel else {
+                return
+            }
+            
+            titleLabel.isHidden = true
+            _titleLabel.text = titleLabel.text
+            _titleLabel.font = titleLabel.font
+            _titleLabel.textAlignment = .center
+            
+            _prefixLabel.font = titleLabel.font.withSize(titleLabel.font.pointSize * titleModifiersFontSizeRatio)
+            _prefixLabel.textAlignment = .left
+            _prefixLabel.text = titlePrefix
+            
+            _sufixLabel.font = titleLabel.font.withSize(titleLabel.font.pointSize * titleModifiersFontSizeRatio)
+            _sufixLabel.textAlignment = .right
+            _sufixLabel.text = titleSufix
+            titleStack.frame = CGRect(x: titleModifierMargin, y: 0, width: frame.width - (titleModifierMargin * 2), height: frame.height)
+            titleStack.isUserInteractionEnabled = false
+        } else {
+            titleStack.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
+        }
+        
+    }
+    
     
 }
 
