@@ -95,20 +95,14 @@ open class MBButton: UIButton {
         }
     }
     
-    public var customShapePath:CGPath? {
-        didSet {
-            applyProperties()
-        }
-    }
-    
     private func updateTitle() {
         setNeedsLayout()
     }
     
     private func applyProperties(){
         
-        let borderColor = (self.borderColor ?? self.tintColor)?.withAlphaComponent(renderHighlight ? 0.5 : 1)
-        self.backgroundColor = self.backgroundColor?.withAlphaComponent(renderHighlight ? 0.5 : 1)
+        let borderColor = isEnabled ? (self.borderColor ?? self.tintColor)?.withAlphaComponent(renderHighlight ? 0.5 : 1) : UIColor.clear
+        self.backgroundColor = isEnabled ? self.backgroundColor?.withAlphaComponent(renderHighlight ? 0.5 : 1) : self.backgroundColor?.withAlphaComponent(0.25)
         
         if (hasDecoratedTitle) {
             self._titleLabel.textColor = self.tintColor?.withAlphaComponent(renderHighlight ? 0.5 : 1)
@@ -127,19 +121,38 @@ open class MBButton: UIButton {
             }
             break
         case .elliptical:
-            break
-        case .custom:
+            let maskLayer = CAShapeLayer()
+            maskLayer.frame = self.bounds
+            maskLayer.path = UIBezierPath(ovalIn: extractCircleRect(self.bounds)).cgPath
+            
+            self.layer.mask = maskLayer
+            
+            if showBorders {
+                borderLayer.frame = self.bounds
+                borderLayer.path = UIBezierPath(ovalIn: extractCircleRect(self.bounds.insetBy(dx: borderWidth, dy: borderWidth))).cgPath
+                borderLayer.strokeColor = borderColor?.cgColor
+                borderLayer.lineWidth = (borderWidth > 0) ? borderWidth : 1.0
+                borderLayer.fillColor = UIColor.clear.cgColor
+                if let sublayers = self.layer.sublayers, !sublayers.contains(borderLayer) {
+                    self.layer.addSublayer(borderLayer)
+                }
+            }
             break
         }
         
-        if subviews.contains(blurView) {
-            blurView.removeFromSuperview()
-        }
+        
         
         if blurBackground {
+            if !subviews.contains(blurView) {
+                addSubview(blurView)
+            }
             blurView.frame = CGRect(origin: CGPoint(x:0, y:0), size: frame.size)
             blurView.layer.cornerRadius = layer.cornerRadius
             insertSubview(blurView, at: 0)
+        } else {
+            if subviews.contains(blurView) {
+                blurView.removeFromSuperview()
+            }
         }
         
         setTitleColor(tintColor, for: .normal)
@@ -147,7 +160,7 @@ open class MBButton: UIButton {
     }
     
     private lazy var blurView:UIVisualEffectView = {
-        let view = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
+        let view = UIVisualEffectView(effect: UIBlurEffect(style: .light))
         view.isUserInteractionEnabled = false
         view.clipsToBounds = true
         return view
@@ -157,6 +170,7 @@ open class MBButton: UIButton {
     private lazy var titleStack = UIStackView()
     private lazy var _prefixLabel = UILabel()
     private lazy var _sufixLabel = UILabel()
+    private lazy var borderLayer = CAShapeLayer()
     
     private var hasDecoratedTitle : Bool {
         return titlePrefix != nil || titleSufix != nil
@@ -220,11 +234,17 @@ open class MBButton: UIButton {
         
     }
     
+    private func extractCircleRect(_ rect: CGRect) -> CGRect{
+        let diameter = min(rect.height, rect.width)
+        let offset =  CGFloat(fabsf(Float(rect.height - rect.width)))/2.0
+        let horizontal = rect.width > rect.height
+        let origin = CGPoint(x: rect.origin.x + (horizontal ? offset : 0), y: rect.origin.y + ( horizontal ? 0 : offset))
+        return CGRect(origin: origin, size: CGSize(width: diameter, height: diameter))
+    }
     
 }
 
 @objc public enum MBButtonType :Int{
     case normal = 0
     case elliptical = 1
-    case custom = 2
 }
