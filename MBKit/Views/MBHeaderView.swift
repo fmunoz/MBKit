@@ -14,7 +14,7 @@
 import UIKit
 
 @IBDesignable
-open class HeaderView : UIView {
+open class MBHeaderView : UIView {
     
     @IBInspectable open var title: String?
     
