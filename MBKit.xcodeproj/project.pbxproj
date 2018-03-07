@@ -15,6 +15,7 @@
 		5187C232202B7E7B00C8CA55 /* MBKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 5187C224202B7E7A00C8CA55 /* MBKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5193036E202B967600F12EFE /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193036D202B967600F12EFE /* Int.swift */; };
 		51930370202B96AA00F12EFE /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193036F202B96AA00F12EFE /* Int.swift */; };
+		51E8062F203672DD00145C48 /* MBAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E8062E203672DD00145C48 /* MBAlertViewController.swift */; };
 		51FC7791202BF9E400286D5C /* MBButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FC7790202BF9E400286D5C /* MBButton.swift */; };
 /* End PBXBuildFile section */
 
@@ -40,6 +41,7 @@
 		5187C231202B7E7B00C8CA55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5193036D202B967600F12EFE /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		5193036F202B96AA00F12EFE /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
+		51E8062E203672DD00145C48 /* MBAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBAlertViewController.swift; sourceTree = "<group>"; };
 		51FC7790202BF9E400286D5C /* MBButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -93,6 +95,7 @@
 		5187C223202B7E7A00C8CA55 /* MBKit */ = {
 			isa = PBXGroup;
 			children = (
+				51E8062D203672B500145C48 /* View Controllers */,
 				510778BA203610BE0001ED07 /* Utilities */,
 				51FC778F202BF9CF00286D5C /* Views */,
 				5193036C202B95AD00F12EFE /* Extensions */,
@@ -118,6 +121,14 @@
 				5193036D202B967600F12EFE /* Int.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		51E8062D203672B500145C48 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				51E8062E203672DD00145C48 /* MBAlertViewController.swift */,
+			);
+			path = "View Controllers";
 			sourceTree = "<group>";
 		};
 		51FC778F202BF9CF00286D5C /* Views */ = {
@@ -252,6 +263,7 @@
 				510778BC203611350001ED07 /* MBHeaderView.swift in Sources */,
 				51FC7791202BF9E400286D5C /* MBButton.swift in Sources */,
 				5193036E202B967600F12EFE /* Int.swift in Sources */,
+				51E8062F203672DD00145C48 /* MBAlertViewController.swift in Sources */,
 				510778C0203644D60001ED07 /* MBLog.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
