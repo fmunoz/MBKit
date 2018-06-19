@@ -14,8 +14,6 @@ open class MBAlertViewController: UIViewController {
         case alert
     }
     
-    //MBAlertViewController(title: "", description: "" image: image, style: .alert)
-    
     var image: UIImage?
     var style: Style
     public var alertTitle: UILabel!
@@ -23,17 +21,19 @@ open class MBAlertViewController: UIViewController {
     
     public init(title: String?, description: String?, image: UIImage?, style: Style){
         
+        self.alertTitle = UILabel()
+        self.alertDescription = UITextView()
         if let title = title {
-            self.alertTitle = UILabel()
             self.alertTitle.attributedText = NSAttributedString(string: title)
         }
         
         if let description = description {
-            self.alertDescription = UITextView()
             self.alertDescription.attributedText = NSAttributedString(string: description)
         }
+        
         self.image = image
         self.style = style
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -42,12 +42,28 @@ open class MBAlertViewController: UIViewController {
         super.init(coder: aDecoder)
     }
     
+    override open func loadView() {
+        let view = UIView(frame: UIScreen.main.bounds)
+        view.backgroundColor = UIColor.black
+        self.view = view
+    }
+    
     override open func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let alertTitle = alertTitle {
+            alertTitle.frame = CGRect(x: 20, y: 20, width: 100, height: 100)
+            self.view.addSubview(alertTitle)
+            
+        }
     }
     
     public func addAction(_ action:MBAlertAction) {
     
+    }
+    
+    override open var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.portrait
     }
 }
 

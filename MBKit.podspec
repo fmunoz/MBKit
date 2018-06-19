@@ -34,7 +34,12 @@ Pod::Spec.new do |s|
 
 
   # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  # s.resources = "Resources/*.png"
+  #s.resources =  ""
+#  s.resource_bundles = {
+#    'MBKit' => [
+#    'MBKit/Resources/*.xib'
+#    ]
+#  }
 
   # ――― Project Setttings ―――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   # s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4' }
