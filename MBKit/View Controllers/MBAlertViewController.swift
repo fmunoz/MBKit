@@ -18,11 +18,13 @@ open class MBAlertViewController: UIViewController {
     var style: Style
     public var alertTitle: UILabel!
     public var alertDescription: UITextView!
+    var actions: [MBAlertAction] = []
     
     public init(title: String?, description: String?, image: UIImage?, style: Style){
         
         self.alertTitle = UILabel()
         self.alertDescription = UITextView()
+        
         if let title = title {
             self.alertTitle.attributedText = NSAttributedString(string: title)
         }
@@ -51,15 +53,42 @@ open class MBAlertViewController: UIViewController {
     override open func viewDidLoad() {
         super.viewDidLoad()
         
+        if let image = image {
+            let imageView = UIImageView(image: image)
+            self.view.addSubview(imageView)
+        }
+        
         if let alertTitle = alertTitle {
-            alertTitle.frame = CGRect(x: 20, y: 20, width: 100, height: 100)
+            alertTitle.sizeToFit()
             self.view.addSubview(alertTitle)
+        }
+        
+        if let alertDescription = alertDescription {
+            alertDescription.sizeToFit()
+            self.view.addSubview(alertDescription)
+        }
+        
+        for action in actions {
+            let button = MBButton(frame: CGRect(origin: CGPoint(x:0,y:0), size: CGSize(width:100,height:100)))
+            button.showBorders = true
+            button.borderColor = UIColor.white
+            button.setAttributedTitle(action.title, for: .normal)
+            button.isEnabled = true
+            button.cornerRadius = 6
+            button.addTarget(self, action: #selector(onActionButton), for: UIControlEvents.touchUpInside)
+            self.view.addSubview(button)
+            
             
         }
+        
+    }
+    
+    @objc func onActionButton(sender: UIButton, forEvent event: UIEvent) {
+        print("tapped")
     }
     
     public func addAction(_ action:MBAlertAction) {
-    
+        self.actions.append(action)
     }
     
     override open var supportedInterfaceOrientations: UIInterfaceOrientationMask {
@@ -72,7 +101,13 @@ public class MBAlertAction {
         case `default`
         case cancel
     }
+    
+    var title: NSAttributedString
+    var style: Style
+    var action: (()->Void)?
     public init(title: NSAttributedString?, style: Style, action: (()-> Void)?) {
-        
+        self.title = title ?? NSAttributedString(string: "")
+        self.style = style
+        self.action = action
     }
 }
