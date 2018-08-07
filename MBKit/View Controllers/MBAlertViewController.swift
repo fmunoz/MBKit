@@ -17,13 +17,13 @@ open class MBAlertViewController: UIViewController {
     var image: UIImage?
     var style: Style
     public var alertTitle: UILabel!
-    public var alertDescription: UITextView!
+    public var alertDescription: UILabel!
     var actions: [MBAlertAction] = []
     
     public init(title: String?, description: String?, image: UIImage?, style: Style){
         
         self.alertTitle = UILabel()
-        self.alertDescription = UITextView()
+        self.alertDescription = UILabel()
         
         if let title = title {
             self.alertTitle.attributedText = NSAttributedString(string: title)
@@ -46,45 +46,64 @@ open class MBAlertViewController: UIViewController {
     
     override open func loadView() {
         let view = UIView(frame: UIScreen.main.bounds)
-        view.backgroundColor = UIColor.black
+        view.backgroundColor = UIColor.gray.withAlphaComponent(0.5)
         self.view = view
     }
     
     override open func viewDidLoad() {
         super.viewDidLoad()
         
+        var views = [UIView]()
+        
         if let image = image {
             let imageView = UIImageView(image: image)
-            self.view.addSubview(imageView)
+            views.append(imageView)
         }
-        
+
         if let alertTitle = alertTitle {
             alertTitle.sizeToFit()
-            self.view.addSubview(alertTitle)
+            views.append(alertTitle)
         }
-        
+
         if let alertDescription = alertDescription {
             alertDescription.sizeToFit()
-            self.view.addSubview(alertDescription)
+            views.append(alertDescription)
         }
-        
+
+        var buttonViews = [UIView]()
         for action in actions {
-            let button = MBButton(frame: CGRect(origin: CGPoint(x:0,y:0), size: CGSize(width:100,height:100)))
+            action.parent = self
+            let button = MBButton(frame: CGRect(origin: CGPoint(x:0,y:0), size: CGSize(width:60,height:40)))
+            button.backgroundColor = UIColor.gray
             button.showBorders = true
             button.borderColor = UIColor.white
             button.setAttributedTitle(action.title, for: .normal)
             button.isEnabled = true
             button.cornerRadius = 6
-            button.addTarget(self, action: #selector(onActionButton), for: UIControlEvents.touchUpInside)
-            self.view.addSubview(button)
-            
-            
+            button.addTarget(action, action: #selector(action.onActionTriggered(sender:forEvent:)), for: UIControlEvents.touchUpInside)
+            buttonViews.append(button)
         }
         
-    }
-    
-    @objc func onActionButton(sender: UIButton, forEvent event: UIEvent) {
-        print("tapped")
+        var buttonStack:UIStackView?
+        if !buttonViews.isEmpty {
+            buttonStack = UIStackView(arrangedSubviews: buttonViews)
+            buttonStack?.distribution = .fillEqually
+            buttonStack?.axis = .horizontal
+        }
+        
+        if let buttonStack = buttonStack {
+            views.append(buttonStack)
+        }
+        
+        let stack = UIStackView(arrangedSubviews: views)
+        stack.distribution = .fillEqually
+        stack.axis = .vertical
+        stack.frame = self.view.bounds.insetBy(dx: 20, dy: 100)
+        
+        let stackBackgroundView = UIView(frame: stack.frame)
+        stackBackgroundView.backgroundColor = UIColor.gray.withAlphaComponent(0.5)
+        self.view.addSubview(stackBackgroundView)
+        self.view.addSubview(stack)
     }
     
     public func addAction(_ action:MBAlertAction) {
@@ -94,6 +113,14 @@ open class MBAlertViewController: UIViewController {
     override open var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return UIInterfaceOrientationMask.portrait
     }
+    
+    //TODO: Figure out how to do this better!
+    public func presentMBAlert(presentingViewController: UIViewController, animated: Bool, completionHandler: (() -> Void)? = nil){
+        
+        self.modalPresentationStyle = .overCurrentContext
+        presentingViewController.present(self, animated: true, completion: completionHandler)
+        
+    }
 }
 
 public class MBAlertAction {
@@ -102,6 +129,7 @@ public class MBAlertAction {
         case cancel
     }
     
+    fileprivate var parent:MBAlertViewController!
     var title: NSAttributedString
     var style: Style
     var action: (()->Void)?
@@ -109,5 +137,13 @@ public class MBAlertAction {
         self.title = title ?? NSAttributedString(string: "")
         self.style = style
         self.action = action
+    }
+    
+    @objc func onActionTriggered(sender: UIButton, forEvent event: UIEvent){
+        parent.dismiss(animated: true, completion: {
+            if let action = self.action {
+                action()
+            }
+        })
     }
 }
