@@ -79,7 +79,7 @@ fileprivate class HeaderViewRenderer : NSObject {
             .font: font,
             .foregroundColor: textColor,
             .paragraphStyle: labelStyle,
-            ] as [NSAttributedStringKey: Any]
+            ] as [NSAttributedString.Key: Any]
         
         let labelTextHeight: CGFloat = title.boundingRect(with: CGSize(width: labelRect.width, height: CGFloat.infinity), options: .usesLineFragmentOrigin, attributes: labelFontAttributes, context: nil).height
         let labelTextRect: CGRect = CGRect(x: labelRect.minX, y: labelRect.minY + (labelRect.height - labelTextHeight) / 2, width: labelRect.width, height: labelTextHeight)
@@ -106,7 +106,7 @@ fileprivate class HeaderViewRenderer : NSObject {
                 .font: font,
                 .foregroundColor: (shadow.shadowColor as! UIColor),
                 .paragraphStyle: labelStyle,
-                ] as [NSAttributedStringKey: Any]
+                ] as [NSAttributedString.Key: Any]
             title.draw(in: labelTextRect, withAttributes: labelInnerShadowFontAttributes)
             
             context.endTransparencyLayer()
