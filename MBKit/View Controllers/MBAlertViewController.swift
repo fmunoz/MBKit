@@ -37,6 +37,7 @@ open class MBAlertViewController: UIViewController {
         self.style = style
         
         super.init(nibName: nil, bundle: nil)
+        self.modalPresentationStyle = .overCurrentContext
     }
     
     public required init?(coder aDecoder: NSCoder) {
@@ -55,13 +56,17 @@ open class MBAlertViewController: UIViewController {
         
         var views = [UIView]()
         
+        let alertFrame = self.view.bounds.insetBy(dx: 20, dy: 100)
+        
         if let image = image {
             let imageView = UIImageView(image: image)
+            imageView.contentMode = .scaleAspectFill
+            imageView.frame = CGRect(x: 0, y: 0, width: alertFrame.width, height: 200)
             views.append(imageView)
         }
 
         if let alertTitle = alertTitle {
-            alertTitle.sizeToFit()
+            alertTitle.frame = CGRect(x: 0, y: 0, width: alertFrame.width, height: 200)
             views.append(alertTitle)
         }
 
@@ -96,7 +101,7 @@ open class MBAlertViewController: UIViewController {
         }
         
         let stack = UIStackView(arrangedSubviews: views)
-        stack.distribution = .fillEqually
+        stack.distribution = .equalCentering
         stack.axis = .vertical
         stack.frame = self.view.bounds.insetBy(dx: 20, dy: 100)
         
@@ -112,14 +117,6 @@ open class MBAlertViewController: UIViewController {
     
     override open var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return UIInterfaceOrientationMask.portrait
-    }
-    
-    //TODO: Figure out how to do this better!
-    public func presentMBAlert(presentingViewController: UIViewController, animated: Bool, completionHandler: (() -> Void)? = nil){
-        
-        self.modalPresentationStyle = .overCurrentContext
-        presentingViewController.present(self, animated: true, completion: completionHandler)
-        
     }
 }
 
