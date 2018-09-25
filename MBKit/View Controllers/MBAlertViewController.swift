@@ -85,7 +85,7 @@ open class MBAlertViewController: UIViewController {
             button.setAttributedTitle(action.title, for: .normal)
             button.isEnabled = true
             button.cornerRadius = 6
-            button.addTarget(action, action: #selector(action.onActionTriggered(sender:forEvent:)), for: UIControlEvents.touchUpInside)
+            button.addTarget(action, action: #selector(action.onActionTriggered(sender:forEvent:)), for: UIControl.Event.touchUpInside)
             buttonViews.append(button)
         }
         

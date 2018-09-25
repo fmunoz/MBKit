@@ -12,9 +12,9 @@ import AVFoundation
     
     private var players: [AVAudioPlayer: (Any?, (Any?)->Void)] = [:]
     
-    public init(category: String) {
+    public override init() {
         do {
-            try AVAudioSession.sharedInstance().setCategory(category)
+            try AVAudioSession.sharedInstance().setCategory(.ambient, mode: .default)
             try AVAudioSession.sharedInstance().setActive(true)
         } catch let error {
             MBLog.shared.print(message: error.localizedDescription)
