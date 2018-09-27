@@ -19,7 +19,7 @@ open class MBSimpleStore {
         var result : URL!
         do {
             let manager = FileManager.default
-            let dirURL = try manager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+            let dirURL = try manager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
             result = dirURL.appendingPathComponent(name)
         } catch let error as NSError {
             MBLog.shared.print(message: "fileURL: Failed to get file URL: \(error)")
