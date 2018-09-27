@@ -22,7 +22,7 @@ open class MBSimpleStore {
             let dirURL = try manager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
             result = dirURL.appendingPathComponent(name)
         } catch let error as NSError {
-            MBLog.shared.print(message: "fileURL: Failed to get file URL: \(error)")
+            MBLog.shared.print("fileURL: Failed to get file URL: \(error)")
         }
         
         return result
@@ -40,7 +40,7 @@ open class MBSimpleStore {
             try data.write(to: fileURL ,options: [NSData.WritingOptions.atomic])
             result = true
         } catch let error as NSError {
-            MBLog.shared.print(message: "MBSimpleStore.save: Failed to save data to disk: \(error)")
+            MBLog.shared.print("MBSimpleStore.save: Failed to save data to disk: \(error)")
             return result;
         }
         
@@ -51,19 +51,19 @@ open class MBSimpleStore {
         var result : Any?
 
         guard let data = try? Data.init(contentsOf: fileURL) else {
-            MBLog.shared.print(message: "MBSimpleStore.fetchObject: Failed to load data from disk")
+            MBLog.shared.print("MBSimpleStore.fetchObject: Failed to load data from disk")
             return result
         }
         
         guard let unarchiver = try? NSKeyedUnarchiver(forReadingFrom: data) else {
-            MBLog.shared.print(message: "MBSimpleStore.fetchObject: Failed to crete unarchiver")
+            MBLog.shared.print("MBSimpleStore.fetchObject: Failed to crete unarchiver")
             return result
         }
         unarchiver.requiresSecureCoding = false
         do {
             result = try unarchiver.decodeTopLevelObject(forKey: key)
         } catch let error as NSError {
-            MBLog.shared.print(message: "MBSimpleStore.fetchObject: Failed to uarchive data: \(error)")
+            MBLog.shared.print("MBSimpleStore.fetchObject: Failed to uarchive data: \(error)")
         }
         unarchiver.finishDecoding()
 
