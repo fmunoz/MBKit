@@ -17,6 +17,8 @@
 		51930370202B96AA00F12EFE /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193036F202B96AA00F12EFE /* Int.swift */; };
 		519F6B3020696ED600E26879 /* MBAlertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 519F6B2F20696ED600E26879 /* MBAlertViewController.xib */; };
 		51E8062F203672DD00145C48 /* MBAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E8062E203672DD00145C48 /* MBAlertViewController.swift */; };
+		51EAF94F215C59260080AF3A /* MBSimpleStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EAF94E215C59260080AF3A /* MBSimpleStore.swift */; };
+		51EAF951215C59750080AF3A /* MBSimpleStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EAF950215C59750080AF3A /* MBSimpleStore.swift */; };
 		51FC7791202BF9E400286D5C /* MBButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FC7790202BF9E400286D5C /* MBButton.swift */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +46,8 @@
 		5193036F202B96AA00F12EFE /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		519F6B2F20696ED600E26879 /* MBAlertViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MBAlertViewController.xib; sourceTree = "<group>"; };
 		51E8062E203672DD00145C48 /* MBAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBAlertViewController.swift; sourceTree = "<group>"; };
+		51EAF94E215C59260080AF3A /* MBSimpleStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBSimpleStore.swift; sourceTree = "<group>"; };
+		51EAF950215C59750080AF3A /* MBSimpleStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBSimpleStore.swift; sourceTree = "<group>"; };
 		51FC7790202BF9E400286D5C /* MBButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -71,6 +75,7 @@
 			children = (
 				510778BD203611520001ED07 /* MBSimpleAudioPlayer.swift */,
 				510778BF203644D60001ED07 /* MBLog.swift */,
+				51EAF94E215C59260080AF3A /* MBSimpleStore.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -114,6 +119,7 @@
 				5187C22F202B7E7B00C8CA55 /* MBKitTests.swift */,
 				5187C231202B7E7B00C8CA55 /* Info.plist */,
 				5193036F202B96AA00F12EFE /* Int.swift */,
+				51EAF950215C59750080AF3A /* MBSimpleStore.swift */,
 			);
 			path = MBKitTests;
 			sourceTree = "<group>";
@@ -277,6 +283,7 @@
 				51FC7791202BF9E400286D5C /* MBButton.swift in Sources */,
 				5193036E202B967600F12EFE /* Int.swift in Sources */,
 				51E8062F203672DD00145C48 /* MBAlertViewController.swift in Sources */,
+				51EAF94F215C59260080AF3A /* MBSimpleStore.swift in Sources */,
 				510778C0203644D60001ED07 /* MBLog.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -285,6 +292,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				51EAF951215C59750080AF3A /* MBSimpleStore.swift in Sources */,
 				5187C230202B7E7B00C8CA55 /* MBKitTests.swift in Sources */,
 				51930370202B96AA00F12EFE /* Int.swift in Sources */,
 			);
