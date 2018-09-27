@@ -25,7 +25,7 @@ public final class MBLog {
     
     public func print(message: String, level: MBLogLevel = .debug) {
         if self.level.rawValue >= level.rawValue {
-            print(message: message)
+            Swift.print(message)
         }
     }
 }
