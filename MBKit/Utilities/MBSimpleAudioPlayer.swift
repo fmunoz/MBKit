@@ -17,7 +17,7 @@ import AVFoundation
             try AVAudioSession.sharedInstance().setCategory(.ambient, mode: .default)
             try AVAudioSession.sharedInstance().setActive(true)
         } catch let error {
-            MBLog.shared.print(message: error.localizedDescription)
+            MBLog.shared.print(error.localizedDescription)
         }
     }
 
@@ -25,7 +25,7 @@ import AVFoundation
         do {
             try AVAudioSession.sharedInstance().setActive(false)
         } catch let error {
-            MBLog.shared.print(message: error.localizedDescription)
+            MBLog.shared.print(error.localizedDescription)
         }
     }
     
@@ -44,7 +44,7 @@ import AVFoundation
             return player.play()
 
         } catch let error {
-            MBLog.shared.print(message: error.localizedDescription)
+            MBLog.shared.print(error.localizedDescription)
             return false
         }
     }
