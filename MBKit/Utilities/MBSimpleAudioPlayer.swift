@@ -8,10 +8,10 @@
 
 import AVFoundation
 
-@objc open class MBSimpleAudioPlayer:NSObject, AVAudioPlayerDelegate {
-    
-    private var players: [AVAudioPlayer: (Any?, (Any?)->Void)] = [:]
-    
+@objc open class MBSimpleAudioPlayer: NSObject, AVAudioPlayerDelegate {
+
+    private var players: [AVAudioPlayer: (Any?, (Any?) -> Void)] = [:]
+
     public override init() {
         do {
             try AVAudioSession.sharedInstance().setCategory(.ambient, mode: .default)
@@ -28,12 +28,12 @@ import AVFoundation
             MBLog.shared.print(error.localizedDescription)
         }
     }
-    
-    public func play (from url:URL) -> Bool {
+
+    public func play (from url: URL) -> Bool {
         return self.play(from: url, completionCookie: nil, completionHandler: nil)
     }
-    
-    public func play(from url:URL, completionCookie: Any?, completionHandler: (( Any?)-> Void)?) -> Bool {
+
+    public func play(from url: URL, completionCookie: Any?, completionHandler: (( Any?) -> Void)?) -> Bool {
         do {
             let player = try AVAudioPlayer(contentsOf: url)
 
@@ -48,13 +48,12 @@ import AVFoundation
             return false
         }
     }
-    
-    public func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool){
+
+    public func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         if let handlerEntry = players[player] {
             players.removeValue(forKey: player)
             handlerEntry.1(handlerEntry.0)
         }
     }
-    
-    
+
 }

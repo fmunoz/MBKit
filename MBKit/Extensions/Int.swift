@@ -9,12 +9,12 @@
 import Foundation
 
 public extension Int {
-    var digitCount:Int {
-        var x = abs(self);
-        var count = 1;
-        while x >= 10 {
+    var digitCount: Int {
+        var workingValue = abs(self)
+        var count = 1
+        while workingValue >= 10 {
             count += 1
-            x /= 10
+            workingValue /= 10
         }
         return count
     }

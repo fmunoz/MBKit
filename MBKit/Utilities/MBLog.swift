@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum MBLogLevel:Int {
+public enum MBLogLevel: Int {
     case debug = 0
     case verbose = 1
 }
@@ -16,13 +16,13 @@ public enum MBLogLevel:Int {
 public final class MBLog {
     private init() {
     }
-    
+
     var level = MBLogLevel.debug
-    
-    public static var shared:MBLog = {
+
+    public static var shared: MBLog = {
         return MBLog()
     }()
-    
+
     public func print(_ message: String, level: MBLogLevel = .debug) {
         if self.level.rawValue >= level.rawValue {
             Swift.print(message)
