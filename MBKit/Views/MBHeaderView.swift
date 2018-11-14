@@ -9,30 +9,32 @@
 //  http://www.paintcodeapp.com
 //
 
-
-
 import UIKit
 
 @IBDesignable
-open class MBHeaderView : UIView {
-    
+open class MBHeaderView: UIView {
+
     @IBInspectable open var title: String?
-    
+
     @IBInspectable open var titleColor: UIColor?
-    
+
     @IBInspectable open var titleShadowColor: UIColor?
-    
+
     @IBInspectable open var titleFontSize: CGFloat = 180
-    
+
     open var titleFont: UIFont?
-    
+
     override open func draw(_ rect: CGRect) {
-        let renderer = HeaderViewRenderer(textColor: self.titleColor ?? self.tintColor, shadowColor: self.titleShadowColor)
-        renderer.draw(frame: rect, title: self.title ?? "", with: self.titleFont ?? UIFont(name: "MarkerFelt-Thin", size: titleFontSize)!)
+        let renderer = HeaderViewRenderer(textColor: self.titleColor ?? self.tintColor,
+                                          shadowColor: self.titleShadowColor)
+        renderer.draw(frame: rect, title: self.title ?? "",
+                      with: self.titleFont ?? UIFont(name: "MarkerFelt-Thin", size: titleFontSize)!)
     }
 }
 
-fileprivate class HeaderViewRenderer : NSObject {
+private let errorColor = UIColor.magenta
+
+private class HeaderViewRenderer: NSObject {
     //// Initializer
     init(textColor: UIColor, shadowColor: UIColor?) {
         self.shadowColor = shadowColor
@@ -41,105 +43,113 @@ fileprivate class HeaderViewRenderer : NSObject {
             shadow = NSShadow(color: shadowColor, offset: CGSize(width: 0, height: 1), blurRadius: 17)
         }
     }
-    
+
     //// Colors
-    
     @objc dynamic public var shadowColor: UIColor?
     @objc dynamic public var textColor: UIColor
-    
+
     //// Shadows
-    
     @objc dynamic public var shadow: NSShadow?
-    
+
     //// Drawing Methods
-    
-    @objc dynamic public func draw(frame targetFrame: CGRect, title: String, with font: UIFont, resizing: ResizingBehavior = .aspectFit) {
+    //swiftlint:disable function_body_length
+    @objc dynamic public func draw(frame targetFrame: CGRect, title: String,
+                                   with font: UIFont, resizing: ResizingBehavior = .aspectFit) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
-        
+
         //// Resize to Target Frame
         context.saveGState()
-        let resizedFrame: CGRect = resizing.apply(rect: CGRect(x: 0, y: 0, width: 1125, height: 200), target: targetFrame)
+        let resizedFrame: CGRect = resizing.apply(rect: CGRect(x: 0, y: 0, width: 1125, height: 200),
+                                                  target: targetFrame)
         context.translateBy(x: resizedFrame.minX, y: resizedFrame.minY)
         context.scaleBy(x: resizedFrame.width / 1125, y: resizedFrame.height / 200)
         let resizedShadowScale: CGFloat = min(resizedFrame.width / 1125, resizedFrame.height / 200)
-        
-        
+
         //// Label Drawing
         let labelRect = CGRect(x: 0, y: 0, width: 1125, height: 200)
         context.saveGState()
-        
+
         if let shadow = shadow {
-            context.setShadow(offset: CGSize(width: shadow.shadowOffset.width * resizedShadowScale, height:shadow.shadowOffset.height * resizedShadowScale), blur: shadow.shadowBlurRadius * resizedShadowScale, color: (shadow.shadowColor as! UIColor).cgColor)
+            context.setShadow(offset: CGSize(width: shadow.shadowOffset.width * resizedShadowScale,
+                                             height: shadow.shadowOffset.height * resizedShadowScale),
+                              blur: shadow.shadowBlurRadius * resizedShadowScale,
+                              color: (shadow.shadowColor as? UIColor)?.cgColor)
         }
-        
+
         let labelStyle = NSMutableParagraphStyle()
         labelStyle.alignment = .center
         let labelFontAttributes = [
             .font: font,
             .foregroundColor: textColor,
-            .paragraphStyle: labelStyle,
+            .paragraphStyle: labelStyle
             ] as [NSAttributedString.Key: Any]
-        
-        let labelTextHeight: CGFloat = title.boundingRect(with: CGSize(width: labelRect.width, height: CGFloat.infinity), options: .usesLineFragmentOrigin, attributes: labelFontAttributes, context: nil).height
-        let labelTextRect: CGRect = CGRect(x: labelRect.minX, y: labelRect.minY + (labelRect.height - labelTextHeight) / 2, width: labelRect.width, height: labelTextHeight)
+
+        let labelTextHeight: CGFloat = title.boundingRect(with: CGSize(width: labelRect.width,
+                                                                       height: CGFloat.infinity),
+                                                          options: .usesLineFragmentOrigin,
+                                                          attributes: labelFontAttributes,
+                                                          context: nil).height
+        let labelTextRect: CGRect =
+            CGRect(x: labelRect.minX, y: labelRect.minY + (labelRect.height - labelTextHeight) / 2,
+                   width: labelRect.width, height: labelTextHeight)
+
         context.saveGState()
         context.clip(to: labelRect)
         title.draw(in: labelTextRect, withAttributes: labelFontAttributes)
         context.restoreGState()
-        
+
         ////// Label Text Inner Shadow
         if let shadow = shadow {
             context.saveGState()
             context.clip(to: labelRect)
             context.setShadow(offset: CGSize.zero, blur: 0)
-            context.setAlpha((shadow.shadowColor as! UIColor).cgColor.alpha)
+            context.setAlpha((shadow.shadowColor as? UIColor)? .cgColor.alpha ?? 1.0)
             context.beginTransparencyLayer(auxiliaryInfo: nil)
-            let labelOpaqueTextShadow = (shadow.shadowColor as! UIColor).withAlphaComponent(1)
-            context.setShadow(offset: CGSize(width:shadow.shadowOffset.width * resizedShadowScale, height: shadow.shadowOffset.height * resizedShadowScale), blur: shadow.shadowBlurRadius * resizedShadowScale, color: labelOpaqueTextShadow.cgColor)
+            let labelOpaqueTextShadow = (shadow.shadowColor as? UIColor)?.withAlphaComponent(1.0) ?? errorColor
+            context.setShadow(offset: CGSize(width: shadow.shadowOffset.width * resizedShadowScale,
+                                             height: shadow.shadowOffset.height * resizedShadowScale),
+                              blur: shadow.shadowBlurRadius * resizedShadowScale, color: labelOpaqueTextShadow.cgColor)
             context.setBlendMode(.sourceOut)
             context.beginTransparencyLayer(auxiliaryInfo: nil)
-            
+
             labelOpaqueTextShadow.setFill()
-            
+
             let labelInnerShadowFontAttributes = [
                 .font: font,
-                .foregroundColor: (shadow.shadowColor as! UIColor),
-                .paragraphStyle: labelStyle,
+                .foregroundColor: (shadow.shadowColor as? UIColor) ?? errorColor,
+                .paragraphStyle: labelStyle
                 ] as [NSAttributedString.Key: Any]
             title.draw(in: labelTextRect, withAttributes: labelInnerShadowFontAttributes)
-            
+
             context.endTransparencyLayer()
             context.endTransparencyLayer()
             context.restoreGState()
         }
-        
-        
+
         context.restoreGState()
-        
+
         context.restoreGState()
-        
+
     }
-    
-    
-    
-    
+    //swiftlint:enable function_body_length
+
     @objc(TitleHeaderResizingBehavior)
     public enum ResizingBehavior: Int {
         case aspectFit /// The content is proportionally resized to fit into the target rectangle.
         case aspectFill /// The content is proportionally resized to completely fill the target rectangle.
         case stretch /// The content is stretched to match the entire target rectangle.
         case center /// The content is centered in the target rectangle, but it is NOT resized.
-        
+
         public func apply(rect: CGRect, target: CGRect) -> CGRect {
             if rect == target || target == CGRect.zero {
                 return rect
             }
-            
+
             var scales = CGSize.zero
             scales.width = abs(target.width / rect.width)
             scales.height = abs(target.height / rect.height)
-            
+
             switch self {
             case .aspectFit:
                 scales.width = min(scales.width, scales.height)
@@ -153,7 +163,7 @@ fileprivate class HeaderViewRenderer : NSObject {
                 scales.width = 1
                 scales.height = 1
             }
-            
+
             var result = rect.standardized
             result.size.width *= scales.width
             result.size.height *= scales.height
@@ -164,8 +174,6 @@ fileprivate class HeaderViewRenderer : NSObject {
     }
 }
 
-
-
 private extension NSShadow {
     convenience init(color: AnyObject!, offset: CGSize, blurRadius: CGFloat) {
         self.init()
@@ -174,4 +182,3 @@ private extension NSShadow {
         self.shadowBlurRadius = blurRadius
     }
 }
-

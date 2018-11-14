@@ -12,7 +12,7 @@ import XCTest
 
 class MBSimpleStoreTests: XCTestCase {
 
-    var store:MBSimpleStore!
+    var store: MBSimpleStore!
     override func setUp() {
         store = MBSimpleStore(name: "tests")
     }
@@ -27,22 +27,29 @@ class MBSimpleStoreTests: XCTestCase {
 
     func test() {
         let names = NSArray( array: [ "John", "Peter", "James", "Andrew" ] )
-        
+
         if !store.save(names, key: "names") {
             XCTFail("failed to save names to MBSimpleStore")
         }
-        
-        let savedNames = store.fetchObject(for: "names") as! NSArray
-        XCTAssertTrue(savedNames.isEqual(names))
-        
-        let numbers = NSArray(array: [1,2,3,4,5])
+
+        let savedNames = store.fetchObject(for: "names") as? NSArray
+        XCTAssertNotNil(savedNames)
+        if let savedNames = savedNames {
+            XCTAssertTrue(savedNames.isEqual(names))
+        }
+
+        let numbers = NSArray(array: [1, 2, 3, 4, 5])
         if !store.save(numbers, key: "numbers") {
             XCTFail("Failed to save numbers to MBSimpleStore")
         }
-        
-        let savedNumbers = store.fetchObject(for: "numbers") as! NSArray
-        XCTAssertTrue(savedNumbers.isEqual(numbers))
-        
-        XCTAssertFalse(savedNumbers.isEqual(names))
+
+        let savedNumbers = store.fetchObject(for: "numbers") as? NSArray
+
+        XCTAssertNotNil(savedNumbers)
+
+        if let savedNumbers = savedNumbers {
+            XCTAssertTrue(savedNumbers.isEqual(numbers))
+            XCTAssertFalse(savedNumbers.isEqual(names))
+        }
     }
 }
