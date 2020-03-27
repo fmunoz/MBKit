@@ -9,7 +9,7 @@
 import UIKit
 
 public extension UITableViewCell {
-    public func setDisclosureIndicatorColor(color: UIColor) {
+    func setDisclosureIndicatorColor(color: UIColor) {
         for view in self.subviews {
             if let disclosureView = view as? UIButton {
                 var image = disclosureView.backgroundImage(for: .normal)
