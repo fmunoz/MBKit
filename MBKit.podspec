@@ -42,6 +42,6 @@ Pod::Spec.new do |s|
 #  }
 
   # ――― Project Setttings ―――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  # s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4' }
+  # s.pod_target_xcconfig = { 'SWIFT_VERSION' => '5' }
 
 end
