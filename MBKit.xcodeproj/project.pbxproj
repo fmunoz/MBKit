@@ -21,6 +21,7 @@
 		51EAF94F215C59260080AF3A /* MBSimpleStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EAF94E215C59260080AF3A /* MBSimpleStore.swift */; };
 		51EAF951215C59750080AF3A /* MBSimpleStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EAF950215C59750080AF3A /* MBSimpleStore.swift */; };
 		51FC7791202BF9E400286D5C /* MBButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FC7790202BF9E400286D5C /* MBButton.swift */; };
+		80639372243808A400B41F97 /* MBKit.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 80639371243808A400B41F97 /* MBKit.podspec */; };
 		920EA00E11FEC4541BB4314E /* Pods_MBKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A225DF0A63B40526D14BC88 /* Pods_MBKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +55,7 @@
 		51EAF94E215C59260080AF3A /* MBSimpleStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBSimpleStore.swift; sourceTree = "<group>"; };
 		51EAF950215C59750080AF3A /* MBSimpleStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBSimpleStore.swift; sourceTree = "<group>"; };
 		51FC7790202BF9E400286D5C /* MBButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBButton.swift; sourceTree = "<group>"; };
+		80639371243808A400B41F97 /* MBKit.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MBKit.podspec; sourceTree = "<group>"; };
 		809DDF11E7023B76A65580F1 /* Pods_MBKitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MBKitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C48F2B5D44060CB1155CDB06 /* Pods-MBKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MBKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MBKit/Pods-MBKit.debug.xcconfig"; sourceTree = "<group>"; };
 		E30E243E28BCDDFF0DFBCAE3 /* Pods-MBKitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MBKitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MBKitTests/Pods-MBKitTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 		5187C217202B7E7A00C8CA55 = {
 			isa = PBXGroup;
 			children = (
+				80639371243808A400B41F97 /* MBKit.podspec */,
 				5187C223202B7E7A00C8CA55 /* MBKit */,
 				5187C22E202B7E7B00C8CA55 /* MBKitTests */,
 				5187C222202B7E7A00C8CA55 /* Products */,
@@ -287,6 +290,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80639372243808A400B41F97 /* MBKit.podspec in Resources */,
 				519F6B3020696ED600E26879 /* MBAlertViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

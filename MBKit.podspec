@@ -4,7 +4,7 @@ Pod::Spec.new do |s|
 
   # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   s.name         = "MBKit"
-  s.version      = "0.0.1"
+  s.version      = "1.0"
   s.summary      = "Swift Library of utilities and extensions for building iOS applications"  
   s.description  = <<-DESC
   MBKit Library of utilities and extensions for building iOS applications written in Swift. 
@@ -35,11 +35,11 @@ Pod::Spec.new do |s|
 
   # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #s.resources =  ""
-#  s.resource_bundles = {
-#    'MBKit' => [
-#    'MBKit/Resources/*.xib'
-#    ]
-#  }
+  s.resource_bundles = {
+    'MBKit' => [
+    'MBKit/Resources/*.xib'
+    ]
+  }
 
   # ――― Project Setttings ―――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   s.pod_target_xcconfig = { 'SWIFT_VERSION' => '5' }
